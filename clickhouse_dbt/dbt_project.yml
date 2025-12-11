@@ -1,0 +1,11 @@
+name: "clickhouse_dbt"
+version: "1.0"
+config-version: 2
+profile: 'clickhouse_profile'
+require-dbt-version: "1.10.13"
+
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+# dbt config

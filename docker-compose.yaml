@@ -1,6 +1,6 @@
 x-airflow-common:
   &airflow-common
-  build: 
+  build:
     context: .
     dockerfile: Dockerfile
 
@@ -32,6 +32,19 @@ x-airflow-common:
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
 
+    DBT_PROJECT_DIR: ${DBT_PROJECT_DIR}
+    DBT_PROFILES_DIR: ${DBT_PROFILES_DIR}
+    DBT_CLICKHOUSE_USER: ${DBT_CLICKHOUSE_USER}
+    DBT_CLICKHOUSE_PASSWORD: ${DBT_CLICKHOUSE_PASSWORD}
+    DBT_CLICKHOUSE_HOST: ${DBT_CLICKHOUSE_HOST}
+
+    S3_ENDPOINT: ${S3_ENDPOINT}
+    S3_ACCESS_KEY: ${S3_ACCESS_KEY}
+    S3_SECRET_KEY: ${S3_SECRET_KEY}
+
+    # OpenAI API for error summaries
+    OPENAI_API_KEY: ${OPENAI_API_KEY}
+
     # --- Airflow 3.x JWT for Execution/Public API ---
     AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_JWT_SECRET}
     AIRFLOW__API_AUTH__JWT_ALGORITHM: "HS512"
@@ -42,6 +55,7 @@ x-airflow-common:
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/clickhouse_dbt:/opt/airflow/clickhouse_dbt
+    - ./config/odbc.ini:/etc/odbc.ini
     - airflow-logs-volume:/opt/airflow/logs
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
@@ -52,6 +66,7 @@ x-airflow-common:
 services:
   postgres:
     image: postgres:16
+    mem_limit: "1g"
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
@@ -66,6 +81,7 @@ services:
     restart: always
 
   redis:
+    mem_limit: "1g"
     image: redis:7.2-bookworm
     expose:
       - 6379
@@ -79,6 +95,7 @@ services:
 
   airflow-apiserver:
     <<: *airflow-common
+    mem_limit: "1g"
     command: api-server
     ports:
       - "8080:8080"
@@ -96,6 +113,7 @@ services:
 
   airflow-scheduler:
     <<: *airflow-common
+    mem_limit: "1g"
     command: scheduler
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost:8974/health"]
@@ -111,6 +129,7 @@ services:
 
   airflow-dag-processor:
     <<: *airflow-common
+    mem_limit: "2g"
     command: dag-processor
     healthcheck:
       test: ["CMD-SHELL", 'airflow jobs check --job-type DagProcessorJob --hostname "$${HOSTNAME}"']
@@ -127,6 +146,9 @@ services:
   airflow-worker:
     <<: *airflow-common
     command: celery worker
+
+    mem_limit: "7g"
+    cpus: "3.0"
 
     healthcheck:
       test:
@@ -154,6 +176,7 @@ services:
 
   airflow-triggerer:
     <<: *airflow-common
+    mem_limit: "1g"
     command: triggerer
     healthcheck:
       test: ["CMD-SHELL", 'airflow jobs check --job-type TriggererJob --hostname "$${HOSTNAME}"']

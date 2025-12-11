@@ -1,2 +1,126 @@
 # Core Airflow
 apache-airflow==3.1.2
+
+# Airflow Providers - using compatible versions for Python 3.12
+apache-airflow-providers-amazon==9.16.0
+apache-airflow-providers-celery==3.13.0
+apache-airflow-providers-cncf-kubernetes==10.9.0
+apache-airflow-providers-common-compat==1.8.0
+apache-airflow-providers-common-io==1.6.4
+apache-airflow-providers-common-sql==1.28.2
+apache-airflow-providers-docker==4.4.0
+apache-airflow-providers-elasticsearch==6.3.4
+apache-airflow-providers-fab==3.0.1
+apache-airflow-providers-ftp==3.13.2
+apache-airflow-providers-google>=18.0.0
+apache-airflow-providers-grpc>=3.8.0
+apache-airflow-providers-hashicorp>=4.0.0
+apache-airflow-providers-http>=5.0.0
+apache-airflow-providers-imap>=3.9.0
+apache-airflow-providers-microsoft-azure>=12.0.0
+apache-airflow-providers-microsoft-mssql>=4.0.0
+apache-airflow-providers-mysql>=6.0.0
+apache-airflow-providers-odbc>=4.7.0
+apache-airflow-providers-openlineage>=2.7.0
+apache-airflow-providers-postgres>=6.0.0
+apache-airflow-providers-redis>=4.3.0
+apache-airflow-providers-sendgrid>=3.6.0
+apache-airflow-providers-sftp>=5.0.0
+apache-airflow-providers-slack>=9.0.0
+apache-airflow-providers-smtp>=2.3.0
+apache-airflow-providers-snowflake>=6.0.0
+apache-airflow-providers-sqlite>=4.0.0
+apache-airflow-providers-ssh>=4.0.0
+apache-airflow-providers-telegram==4.8.3
+
+# ClickHouse
+clickhouse-connect>=0.8.0
+clickhouse-driver>=0.2.9
+airflow-clickhouse-plugin>=1.4.0
+
+# dbt
+dbt-core==1.10.13
+dbt-clickhouse>=1.9.0
+
+# Database drivers
+psycopg[binary,pool]>=3.1.0
+pymssql>=2.3.0
+pyodbc>=5.2.0
+
+# AWS
+boto3>=1.37.2
+botocore>=1.37.2
+aiobotocore>=2.16.0
+s3fs>=2024.0.0
+s3transfer==0.14.0
+
+# Google Cloud
+pandas-gbq>=0.25.0
+pydata-google-auth>=1.8.0
+sqlalchemy-bigquery>=1.12.0
+
+# Snowflake
+snowflake-connector-python>=3.12.0
+snowflake-sqlalchemy>=1.7.0
+
+# Redshift
+redshift-connector>=2.1.0
+sqlalchemy-redshift>=0.8.14
+
+# Celery & Message Queue
+celery>=5.4.0
+redis>=5.2.0
+eventlet>=0.37.0
+
+# Data Processing
+pandas==2.1.4
+sqlalchemy>=1.4.9
+numpy>=1.26.0
+pyarrow>=18.0.0
+duckdb>=1.1.0
+openpyxl>=3.1.0
+psycopg2-binary>=2.9.11
+
+# Authentication & Security
+Authlib>=1.3.0
+bcrypt>=4.2.0
+cryptography>=44.0.0
+PyJWT>=2.10.0
+oauthlib>=3.2.0
+requests-oauthlib>=2.0.0
+paramiko>=3.5.0
+PyNaCl>=1.5.0
+python-ldap>=3.4.0
+ldap3>=2.9.0
+hvac>=2.3.0
+
+# API & HTTP
+requests>=2.32.0
+urllib3>=2.2.0
+httpx>=0.28.0
+aiohttp>=3.11.0
+aiofiles>=24.1.0
+
+# Kubernetes
+kubernetes>=31.0.0
+kubernetes_asyncio>=31.0.0
+
+# Docker
+docker>=7.1.0
+
+# Monitoring & Logging
+opentelemetry-api>=1.29.0
+opentelemetry-sdk>=1.29.0
+opentelemetry-exporter-otlp>=1.29.0
+openlineage-python>=1.26.0
+prometheus_client>=0.21.0
+watchtower>=3.3.0
+
+# Communication
+slack_sdk>=3.33.0
+python-telegram-bot>=21.0
+sendgrid>=6.11.0
+
+# AI/ML
+openai>=1.0.0
+python-dotenv>=1.0.0
